@@ -1,6 +1,6 @@
 import {getStorageTypeByExpires, getValidatedExpires} from "./validate";
 import {getItem, remove, setItem} from "./storage";
-import {log} from "./utils";
+import {getDate, log} from "./utils";
 
 
 /**
@@ -26,15 +26,28 @@ class Pia{
             expires,
             storageType,
             arguments,
+            createdDate: getDate()
         };
 
         // set Item
         setItem(key, formattedObject);
     }
 
-    get(key){
-        log('log', 'GET', getItem(key))
-        return getItem(key);
+    get(key, returnFullValue = false){
+        const value = getItem(key);
+
+        if(value !== null){
+            if(returnFullValue){
+                log('log', 'GET', value);
+                return value;
+            }else{
+                log('log', 'GET', value.value);
+                return value.value;
+            }
+        }
+
+        log('log', 'GET', value);
+        return value;
     }
 
     remove(key){

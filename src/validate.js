@@ -42,15 +42,20 @@ export function getStorageTypeByExpires(expires){
 }
 
 
-export function isExpired(expires){
-    switch(expires){
+/**
+ * Check expires by formatted value
+ * @param value
+ * @returns {boolean}
+ */
+export function isExpired(value){
+    switch(value.expires){
         case 'session':
         case 'never':
             // never expired
             return false;
         default:
             // check date
-            const daysDiff = daysBetween(getDate(3), expires);
+            const daysDiff = daysBetween(getDate(), value.expires);
             return daysDiff < 0;
     }
 }

@@ -28,8 +28,7 @@ any type of value.
 Create a record that expires 7 days from now.
 
 ```js
-Pia.set('key', [1, 2], {expires: 7}); // expired ? => null
-Pia.set('key', [1, 2], {expires: 7}); // not expired ? => value object
+Pia.set('key', [1, 2], {expires: 7});
 ```
 
 Create an expiring record that only valid in the current browser tab.
@@ -42,6 +41,7 @@ Pia.set('key', [1, 2], {expires: 'session'});
 
 ```js
 Pia.get('key');
+Pia.get('key', true); // => full value object
 Pia.get('nothing'); // => null
 ```
 

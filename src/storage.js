@@ -58,7 +58,7 @@ export function getItem(key){
     value = JSON.parse(value);
 
     // check expires
-    if(!isExpired(value.expires)){
+    if(!isExpired(value)){
         log('log', `[${key}] is not expired`)
         return value;
     }
