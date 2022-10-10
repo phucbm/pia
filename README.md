@@ -1,5 +1,9 @@
 # PiaJS
 
+[![release](https://badgen.net/github/release/viivue/pia/)](https://github.com/viivue/pia/releases/latest)
+[![minified](https://badgen.net/badge/minified/2KB/cyan)](https://www.jsdelivr.com/package/gh/viivue/pia)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/viivue/pia/badge?style=rounded)](https://www.jsdelivr.com/package/gh/viivue/pia)
+
 Leverage the use of `localStorage` and `sessionStorage`.
 
 - Use both `localStorage` or `sessionStorage` depends on your expires setting.
