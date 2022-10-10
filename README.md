@@ -4,10 +4,21 @@
 [![minified](https://badgen.net/badge/minified/2KB/cyan)](https://www.jsdelivr.com/package/gh/viivue/pia)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/viivue/pia/badge?style=rounded)](https://www.jsdelivr.com/package/gh/viivue/pia)
 
-Leverage the use of `localStorage` and `sessionStorage`.
+> A simple, lightweight JavaScript API for handling browser storage
 
-- Use both `localStorage` or `sessionStorage` depends on your expires setting.
-- Accept any value type.
+- Automatically switch between `localStorage` and `sessionStorage` depends on your expires setting
+- Accepts any value type
+- No dependency
+
+## Cookies vs. Local Storage vs. Session Storage
+
+|                        | Cookies            | Local Storage                     | Session Storage | 
+|------------------------|--------------------|-----------------------------------|-----------------|
+| **Capacity**           | 4kb                | 10mb                              | 5mb             |
+| **Accessible from**    | Any window         | Any window                        | Same tab        |
+| **Expires**            | Manually set       | Never (_Manually set with PiaJS_) | On tab close    |
+| **Storage location**   | Browser and server | Browser only                      | Browser only    |
+| **Sent with requests** | Yes                | No                                | No              |
 
 ## Usage
 
