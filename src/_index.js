@@ -1,5 +1,6 @@
 import {getStorageTypeByExpires, getValidatedExpires} from "./validate";
 import {getItem, remove, setItem} from "./storage";
+import {log} from "./utils";
 
 
 /**
@@ -32,7 +33,7 @@ class Pia{
     }
 
     get(key){
-        console.log('GET', getItem(key))
+        log('log', 'GET', getItem(key))
         return getItem(key);
     }
 

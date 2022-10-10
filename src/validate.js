@@ -1,4 +1,4 @@
-import {getDate} from "./utils"
+import {daysBetween, getDate} from "./utils"
 
 /**
  * Get expires from input
@@ -39,4 +39,18 @@ export function getValidatedExpires(expires){
  */
 export function getStorageTypeByExpires(expires){
     return expires === 'session' ? 'sessionStorage' : 'localStorage'
+}
+
+
+export function isExpired(expires){
+    switch(expires){
+        case 'session':
+        case 'never':
+            // never expired
+            return false;
+        default:
+            // check date
+            const daysDiff = daysBetween(getDate(3), expires);
+            return daysDiff < 0;
+    }
 }

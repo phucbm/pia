@@ -77,14 +77,12 @@ export function setCSS(target, props){
 
 /**
  * Console log
- * @param context
- * @param status
+ * @param type
  * @param message
  */
-export function log(context, status, ...message){
-    if(context.options.dev){
-        console?.[status](...message);
-    }
+export function log(type = 'log', ...message){
+    const enable = false;
+    if(enable) console?.[type](...message);
 }
 
 
@@ -108,4 +106,22 @@ export function getDate(day = 0){
     date.setDate(date.getDate() + day);
 
     return new Date(date).toLocaleString().split(',')[0];
+}
+
+
+/**
+ * Get number of days between two dates in format mm/dd/yyyy
+ * @param startDate
+ * @param endDate
+ * @returns {number}
+ */
+export function daysBetween(startDate, endDate){
+    const treatAsUTC = date => {
+        const result = new Date(date);
+        result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+        return result;
+    }
+
+    const millisecondsPerDay = 24 * 60 * 60 * 1000;
+    return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
 }
