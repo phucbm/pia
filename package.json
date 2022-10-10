@@ -1,13 +1,13 @@
 {
-  "name": "my-lib",
-  "prettyName": "Webpack Library Boilerplate",
-  "codeName": "MyLib",
+  "name": "pia",
+  "prettyName": "Pia JS",
+  "codeName": "Pia",
   "version": "0.0.1",
-  "description": "A boilerplate to build JavaScript library with ES6 module and UMD version.",
-  "homepage": "https://github.com/phucbm/webpack-library-boilerplate",
+  "description": "Manage session storage and local storage as easy as eating a Pia cake.",
+  "homepage": "https://github.com/viivue/pia",
   "repository": {
     "type": "git",
-    "url": "git@github.com:phucbm/webpack-library-boilerplate"
+    "url": "git@github.com:viivue/pia"
   },
   "author": {
     "name": "phucbm",
@@ -19,7 +19,7 @@
     "es6"
   ],
   "license": "MIT",
-  "main": "./dist/my-lib.module.js",
+  "main": "./dist/pia.module.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack serve --config config/webpack.dev.js",
     "build-umd": "cross-env NODE_ENV=production webpack --config config/webpack.umd.js",

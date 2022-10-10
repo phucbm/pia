@@ -4,7 +4,7 @@ import {uniqueId} from "@/utils";
 /**
  * Private class
  */
-class MyLib{
+class Pia{
     constructor(options){
         this.id = uniqueId();
         this.options = {
@@ -38,27 +38,27 @@ class Controller{
 
 /**
  * Public library data
- * access via window.MyLibController
+ * access via window.PiaController
  */
-window.MyLibController = new Controller();
+window.PiaController = new Controller();
 
 
 /**
  * Public library object
- * access via window.MyLib
+ * access via window.Pia
  */
-window.MyLib = {
+window.Pia = {
     // init new instances
     init: (options = {}) => {
-        const selector = options.selector || '[data-my-lib]';
+        const selector = options.selector || '[data-pia]';
 
         // init with selector
         document.querySelectorAll(selector).forEach(el => {
-            window.MyLibController.add(new MyLib({el, ...options}));
+            window.PiaController.add(new Pia({el, ...options}));
         });
     },
     // Get instance object by ID
-    get: id => window.MyLibController.get(id)
+    get: id => window.PiaController.get(id)
 };
 
-window.MyLib.init();
+window.Pia.init();
