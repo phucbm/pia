@@ -95,3 +95,17 @@ export function uniqueId(prefix = ''){
     return prefix + (+new Date()).toString(16) +
         (Math.random() * 100000000 | 0).toString(16);
 }
+
+
+/**
+ * Get today or date relative to today in format mm/dd/yyyy
+ * @returns {string}
+ */
+export function getDate(day = 0){
+    const date = new Date(Date.now());
+
+    // shift days
+    date.setDate(date.getDate() + day);
+
+    return new Date(date).toLocaleString().split(',')[0];
+}
