@@ -1,7 +1,8 @@
 # PiaJS
 
-[![release](https://badgen.net/github/release/phucbm/pia/)](https://github.com/phucbm/pia/releases/latest)
+[![release](https://badgen.net/npm/v/piajs)](https://www.npmjs.com/package/piajs?activeTab=versions)
 [![minified](https://badgen.net/badge/minified/2KB/cyan)](https://www.jsdelivr.com/package/gh/phucbm/pia)
+[![license](https://badgen.net/npm/license/piajs)](https://github.com/phucbm/pia/blob/main/LICENSE)
 [![jsdelivr](https://data.jsdelivr.com/v1/package/gh/phucbm/pia/badge?style=rounded)](https://www.jsdelivr.com/package/gh/phucbm/pia)
 
 > A simple, lightweight JavaScript API for handling browser storage
@@ -44,7 +45,7 @@ import "piajs";
 
 ### CDN
 
-Updating.
+Download minified version from `/dist` folder.
 
 ## Usage
 
