@@ -96,21 +96,25 @@ export function uniqueId(prefix = ''){
 
 
 /**
- * Get today or date relative to today in format mm/dd/yyyy
+ * Get today in format yyyy-mm-dd
  * @returns {string}
  */
-export function getDate(day = 0){
+export function getDate(shiftDays = 0){
     const date = new Date(Date.now());
 
     // shift days
-    date.setDate(date.getDate() + day);
+    date.setDate(date.getDate() + shiftDays);
 
-    return new Date(date).toLocaleString().split(',')[0];
+    // format
+    const month = '' + (date.getMonth() + 1),
+        day = '' + date.getDate(),
+        year = date.getFullYear();
+    return [year, month, day].join('-');
 }
 
 
 /**
- * Get number of days between two dates in format mm/dd/yyyy
+ * Get number of days between two dates in format yyyy-mm-dd
  * @param startDate
  * @param endDate
  * @returns {number}
