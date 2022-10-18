@@ -11,7 +11,7 @@ module.exports = {
         outputModule: true,
     },
     output: {
-        filename: `${packageInfo.name}.module.js`,
+        filename: `${packageInfo.outputName}.module.js`,
         libraryTarget: 'module',
         umdNamedDefine: true,
         // prevent error: `Uncaught ReferenceError: self is not define`

@@ -8,7 +8,7 @@ module.exports = {
     devtool: false,
     entry: paths.entry,
     output: {
-        filename: `${packageInfo.name}.min.js`,
+        filename: `${packageInfo.outputName}.min.js`,
         library: `${packageInfo.codeName}`,
         libraryTarget: 'umd',
         umdNamedDefine: true,

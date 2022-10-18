@@ -1,8 +1,8 @@
 # PiaJS
 
-[![release](https://badgen.net/github/release/viivue/pia/)](https://github.com/viivue/pia/releases/latest)
-[![minified](https://badgen.net/badge/minified/2KB/cyan)](https://www.jsdelivr.com/package/gh/viivue/pia)
-[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/viivue/pia/badge?style=rounded)](https://www.jsdelivr.com/package/gh/viivue/pia)
+[![release](https://badgen.net/github/release/phucbm/pia/)](https://github.com/phucbm/pia/releases/latest)
+[![minified](https://badgen.net/badge/minified/2KB/cyan)](https://www.jsdelivr.com/package/gh/phucbm/pia)
+[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/phucbm/pia/badge?style=rounded)](https://www.jsdelivr.com/package/gh/phucbm/pia)
 
 > A simple, lightweight JavaScript API for handling browser storage
 
@@ -19,6 +19,32 @@
 | **Expires**            | Manually set       | Never (_Manually set with PiaJS_) | On tab close    |
 | **Storage location**   | Browser and server | Browser only                      | Browser only    |
 | **Sent with requests** | Yes                | No                                | No              |
+
+## Installation
+
+### NPM package
+
+```shell
+npm i piajs
+```
+
+or as a dev dependency
+
+```shell
+npm i piajs --save-dev
+```
+
+Import
+
+```js
+import "piajs";
+
+// your script
+```
+
+### CDN
+
+Updating.
 
 ## Usage
 
