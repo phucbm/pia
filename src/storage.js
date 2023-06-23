@@ -1,4 +1,4 @@
-import {isExpired} from "./validate";
+import {isExpired} from "./expiration-check";
 import {log} from "./utils";
 
 /**

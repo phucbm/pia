@@ -81,7 +81,7 @@ export function setCSS(target, props){
  * @param message
  */
 export function log(type = 'log', ...message){
-    const enable = false;
+    const enable = true;
     if(enable) console?.[type](...message);
 }
 
