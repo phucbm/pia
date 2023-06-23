@@ -1,4 +1,4 @@
-import {getStorageTypeByExpires, getValidatedExpires} from "./validate";
+import {getStorageTypeByExpires, getValidatedExpires, getValidatedExpiresUnit} from "./validate";
 import {getItem, remove, setItem} from "./storage";
 import {getDate, log} from "./utils";
 
@@ -13,10 +13,12 @@ class Pia{
     set(key, value, options){
         const config = {
             expires: 'local', // local, session, int
+            unit: 'day', // times, hour, day
             ...options
         };
 
         const expires = getValidatedExpires(config.expires);
+        const unit = getValidatedExpiresUnit(config.unit);
         const storageType = getStorageTypeByExpires(expires);
 
         const formattedObject = {
@@ -24,6 +26,7 @@ class Pia{
             valueType: typeof value,
             value,
             expires,
+            unit,
             storageType,
             arguments,
             createdDate: getDate()
@@ -53,7 +56,6 @@ class Pia{
     remove(key){
         return remove(key);
     }
-
 }
 
 /**

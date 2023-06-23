@@ -27,8 +27,25 @@ export function getValidatedExpires(expires){
         validatedExpires = getDate(expires);
     }
 
-    // session, never, date mm/dd/yyyy
+    // accepted values: "session", "never", (int)number
     return validatedExpires;
+}
+
+
+/**
+ * Get expires unit
+ * Return the accepted unit or false if the unit is not recognized
+ * @param unit
+ * @returns {boolean|*}
+ */
+export function getValidatedExpiresUnit(unit){
+    const allowedUnits = ['times', 'hour', 'day'];
+    if(allowedUnits.includes(unit)){
+        return unit;
+    }
+
+    console.warn(`PiaJS: unit "${unit}" is not recognized. Accepted units are`, allowedUnits);
+    return false;
 }
 
 
