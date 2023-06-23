@@ -99,7 +99,7 @@ export function uniqueId(prefix = ''){
  * Get today in format yyyy-mm-dd
  * @returns {string}
  */
-export function getDate(shiftDays = 0){
+export function getFormattedDate(shiftDays = 0){
     const date = new Date(Date.now());
 
     // shift days

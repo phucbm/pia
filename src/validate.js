@@ -1,4 +1,4 @@
-import {getDate} from "./utils"
+import {getFormattedDate} from "./utils"
 
 /**
  * Get expires from input
@@ -27,7 +27,7 @@ export function getValidatedExpiresValue(expires, unit){
                 return expires;
             default:
                 // day
-                return getDate(expires);
+                return getFormattedDate(expires);
         }
     }
 

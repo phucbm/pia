@@ -1,4 +1,4 @@
-import {daysBetween, getDate} from "./utils";
+import {daysBetween, getFormattedDate} from "./utils";
 
 /**
  * Check expires by formatted value
@@ -40,6 +40,6 @@ function isExpiredHourCheck(data){
 
 function isExpiredDayCheck(number_of_days){
     // todo: check day using UTC time
-    const daysDiff = daysBetween(getDate(), number_of_days);
+    const daysDiff = daysBetween(getFormattedDate(), number_of_days);
     return daysDiff < 0;
 }

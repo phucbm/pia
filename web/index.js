@@ -13,8 +13,8 @@ app.innerHTML = homeHtml;
 // Pia.set('hey2', 1.4);
 // Pia.set('hey3', {test: 'lorem'});
 // Pia.set('hey3', [1, 2, 3]);
-Pia.set('hey1', [1, 2, 3], {expires: 2});
-Pia.get('hey1');
+Pia.set('pia-day', [1, 2, 3], {expires: 2});
+Pia.get('pia-day');
 
 
 Pia.set('pia-hour', [1, 2, 3], {expires: 2, unit: 'hour'});

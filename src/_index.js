@@ -1,11 +1,10 @@
 import {
     getStorageTypeByExpires,
-    getValidatedExpires,
     getValidatedExpiresUnit,
     getValidatedExpiresValue
 } from "./validate";
 import {getItem, remove, setItem} from "./storage";
-import {getDate, log} from "./utils";
+import {getFormattedDate, log} from "./utils";
 
 
 /**
@@ -34,7 +33,7 @@ class Pia{
             unit,
             storageType,
             arguments,
-            createdDate: getDate()
+            createdDate: getFormattedDate()
         };
 
         // set Item
