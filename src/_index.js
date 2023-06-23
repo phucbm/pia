@@ -5,6 +5,7 @@ import {
 } from "./validate";
 import {getRecord, removeRecord, setRecord} from "./storage";
 import {getDiffSinceCreated, isRecordExpired} from "./expiration-check";
+import {re} from "@babel/core/lib/vendor/import-meta-resolve";
 
 
 /**
@@ -20,20 +21,24 @@ class Pia{
 
     test(key){
         const record = getRecord(key, true);
-        const leftover = typeof record.expires === 'number' ? `${record.expires - getDiffSinceCreated(record)} ${record.unit}` : record.expires;
+        let testRecord = '';
 
-        const testRecord = {
-            leftover,
-            record
-        };
+        if(record){
+            const leftover = typeof record.expires === 'number' ? `${record.expires - getDiffSinceCreated(record)} ${record.unit}` : record.expires;
+            testRecord = {
+                leftover,
+                record
+            };
+        }else{
+            testRecord = `Record "${key}" not found.`;
+        }
 
         console.group(`Test record:`, key);
         console.log(testRecord);
         console.groupEnd();
     }
 
-    set(key, value, options){
-        console.log('set', key)
+    set(key, value, options = {}){
         const config = {
             expires: 'never', // "session", "never", (int)number
             unit: 'day', // times, hour, day

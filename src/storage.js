@@ -63,7 +63,6 @@ export function getRecord(key, returnFullValue = false){
             return record.value;
         }
     }
-    console.log('isExpired', isRecordExpired(record), record.key)
 
     // remove expired item and return null
     removeRecord(record.key, record.storageType);

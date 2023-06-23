@@ -6,10 +6,11 @@ import {getDiff} from "./datetime";
  * @returns {boolean}
  */
 export function isRecordExpired(record){
+    if(!record) return false;
+
     // never expired
     const neverExpired = ['session', 'never'];
     if(neverExpired.includes(record.expires)){
-        console.log('never expired')
         return false;
     }
 
