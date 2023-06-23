@@ -15,3 +15,6 @@ app.innerHTML = homeHtml;
 // Pia.set('hey3', [1, 2, 3]);
 Pia.set('hey1', [1, 2, 3], {expires: 2});
 Pia.get('hey1');
+
+
+Pia.set('pia-hour', [1, 2, 3], {expires: 2, unit: 'hour'});

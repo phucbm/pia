@@ -28,14 +28,18 @@ export function isExpired(value){
 }
 
 function isExpiredTimesCheck(data){
-
+    // todo: check times
+    return false;
 }
 
 function isExpiredHourCheck(data){
-
+    // todo: check hour
+    console.log('isExpiredHourCheck', data)
+    return false;
 }
 
 function isExpiredDayCheck(number_of_days){
+    // todo: check day using UTC time
     const daysDiff = daysBetween(getDate(), number_of_days);
     return daysDiff < 0;
 }

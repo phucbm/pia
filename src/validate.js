@@ -1,34 +1,38 @@
-import {daysBetween, getDate} from "./utils"
+import {getDate} from "./utils"
 
 /**
  * Get expires from input
  * @param expires
- * @returns {string}
+ * @param unit
+ * @returns {*}
  */
-export function getValidatedExpires(expires){
-    let validatedExpires = '';
+export function getValidatedExpiresValue(expires, unit){
+    // accepted values: "session", "never", (int)number
 
     // string
     if(typeof expires === 'string'){
-        switch(expires){
-            case 'session':
-            case 'tab':
-            case 'current-tab':
-                validatedExpires = 'session';
-                break;
-            default:
-                validatedExpires = 'never';
+        const acceptedSessionStrings = ['session', 'tab', 'current-tab'];
+        if(acceptedSessionStrings.includes(expires)){
+            return 'session';
         }
+        return 'never';
     }
 
     // number
     if(typeof expires === 'number'){
         expires = parseInt(expires);
-        validatedExpires = getDate(expires);
+        switch(unit){
+            case 'times':
+            case 'hour':
+                return expires;
+            default:
+                // day
+                return getDate(expires);
+        }
     }
 
-    // accepted values: "session", "never", (int)number
-    return validatedExpires;
+    // invalid
+    return false;
 }
 
 
