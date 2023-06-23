@@ -3,8 +3,8 @@ import {
     getValidatedExpiresUnit,
     getValidatedExpiresValue
 } from "./validate";
-import {getItem, remove, setItem} from "./storage";
-import {getFormattedDate, log} from "./utils";
+import {getRecord, removeRecord, setRecord} from "./storage";
+import {getDiffSinceCreated, isRecordExpired} from "./expiration-check";
 
 
 /**
@@ -14,9 +14,28 @@ class Pia{
     constructor(){
     }
 
+    isExpired(key){
+        return isRecordExpired(getRecord(key));
+    }
+
+    test(key){
+        const record = getRecord(key, true);
+        const leftover = typeof record.expires === 'number' ? `${record.expires - getDiffSinceCreated(record)} ${record.unit}` : record.expires;
+
+        const testRecord = {
+            leftover,
+            record
+        };
+
+        console.group(`Test record:`, key);
+        console.log(testRecord);
+        console.groupEnd();
+    }
+
     set(key, value, options){
+        console.log('set', key)
         const config = {
-            expires: 'local', // local, session, int
+            expires: 'never', // "session", "never", (int)number
             unit: 'day', // times, hour, day
             ...options
         };
@@ -33,32 +52,19 @@ class Pia{
             unit,
             storageType,
             arguments,
-            createdDate: getFormattedDate()
+            createdDate: new Date().toString()
         };
 
         // set Item
-        setItem(key, formattedObject);
+        setRecord(key, formattedObject);
     }
 
     get(key, returnFullValue = false){
-        const value = getItem(key);
-
-        if(value !== null){
-            if(returnFullValue){
-                log('log', 'GET', value);
-                return value;
-            }else{
-                log('log', 'GET', value.value);
-                return value.value;
-            }
-        }
-
-        log('log', 'GET', value);
-        return value;
+        return getRecord(key, returnFullValue);
     }
 
     remove(key){
-        return remove(key);
+        return removeRecord(key);
     }
 }
 

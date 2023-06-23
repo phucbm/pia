@@ -1,45 +1,47 @@
-import {daysBetween, getFormattedDate} from "./utils";
+import {getDiff} from "./datetime";
 
 /**
  * Check expires by formatted value
- * @param value
+ * @param record
  * @returns {boolean}
  */
-export function isExpired(value){
-
-    console.log('isExpired', value)
-
+export function isRecordExpired(record){
     // never expired
     const neverExpired = ['session', 'never'];
-    if(neverExpired.includes(value.expires)){
+    if(neverExpired.includes(record.expires)){
+        console.log('never expired')
         return false;
     }
 
     // check by unit
-    switch(value.unit){
+    switch(record.unit){
         case 'times':
-            return isExpiredTimesCheck(value);
+            return isExpiredTimesCheck(record);
         case 'hour':
-            return isExpiredHourCheck(value);
         default:
             // day
-            return isExpiredDayCheck(value.expires);
+            return isExpiredDateCheck(record);
     }
 }
 
-function isExpiredTimesCheck(data){
+function isExpiredTimesCheck(record){
     // todo: check times
     return false;
 }
 
-function isExpiredHourCheck(data){
-    // todo: check hour
-    console.log('isExpiredHourCheck', data)
-    return false;
+
+function isExpiredDateCheck(record){
+    const diffSinceCreated = getDiffSinceCreated(record);
+
+    if(diffSinceCreated === null) return false;
+    const allowance = record.expires;
+
+    return diffSinceCreated > allowance;
 }
 
-function isExpiredDayCheck(number_of_days){
-    // todo: check day using UTC time
-    const daysDiff = daysBetween(getFormattedDate(), number_of_days);
-    return daysDiff < 0;
+export function getDiffSinceCreated(record){
+    const hasLeftoverUnit = ['times', 'hour', 'day'];
+    if(!hasLeftoverUnit.includes(record.unit)) return null;
+
+    return getDiff(new Date(record.createdDate), new Date(), record.unit);
 }

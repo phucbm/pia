@@ -20,15 +20,7 @@ export function getValidatedExpiresValue(expires, unit){
 
     // number
     if(typeof expires === 'number'){
-        expires = parseInt(expires);
-        switch(unit){
-            case 'times':
-            case 'hour':
-                return expires;
-            default:
-                // day
-                return getFormattedDate(expires);
-        }
+        return parseInt(expires);
     }
 
     // invalid

@@ -1,29 +1,27 @@
-import {isExpired} from "./expiration-check";
-import {log} from "./utils";
+import {isRecordExpired} from "./expiration-check";
 
 /**
  * Set item
  * @param key
  * @param value
  */
-export function setItem(key, value){
+export function setRecord(key, value){
     const storageType = value.storageType;
     const string = JSON.stringify(value);
 
     // check existence
-    const existingValue = getItem(key);
+    const existingValue = getRecord(key);
     if(existingValue !== null){
         const oldStorage = existingValue.storageType;
         if(oldStorage !== storageType){
             // remove if is existed in storage
-            log('log', `[${key}] in ${oldStorage} has been removed to save new value in ${storageType}.`);
-            remove(key);
+            removeRecord(key);
         }else{
-            log('log', `[${key}] updated.`);
+            // override record
         }
     }
 
-    // set
+    // set record
     switch(storageType){
         case 'sessionStorage':
             sessionStorage.setItem(key, string);
@@ -31,16 +29,15 @@ export function setItem(key, value){
         default:
             localStorage.setItem(key, string);
     }
-
-    log('log', 'SET', value)
 }
 
 /**
  * Get item by key
  * @param key
+ * @param returnFullValue
  * @returns {string|null|any}
  */
-export function getItem(key){
+export function getRecord(key, returnFullValue = false){
     // check local storage by default
     let value = localStorage.getItem(key);
 
@@ -55,47 +52,36 @@ export function getItem(key){
     }
 
     // parse JSON
-    value = JSON.parse(value);
+    const record = JSON.parse(value);
 
     // check expires
-    if(!isExpired(value)){
-        log('log', `[${key}] is not expired`)
-        return value;
+    if(!isRecordExpired(record)){
+        // return value if it has not expired yet
+        if(returnFullValue){
+            return record;
+        }else{
+            return record.value;
+        }
     }
+    console.log('isExpired', isRecordExpired(record), record.key)
 
-    // remove expired item
-    removeByFormattedValue(value);
-    log('log', `[${key}] has been removed due to expired on [${value.expires}]`);
-
+    // remove expired item and return null
+    removeRecord(record.key, record.storageType);
     return null;
 }
 
 /**
  * Remove by key
  * @param key
+ * @param storageType
  * @returns {boolean}
  */
-export function remove(key){
-    return removeByFormattedValue(getItem(key));
-}
-
-/**
- * Remove by formatted value
- * @param value
- * @returns {boolean}
- */
-function removeByFormattedValue(value){
-    if(value !== null){
-        switch(value.storageType){
-            case 'sessionStorage':
-                sessionStorage.removeItem(value.key);
-                break;
-            default:
-                localStorage.removeItem(value.key);
-        }
-
-        return true;
+export function removeRecord(key, storageType = 'localStorage'){
+    switch(storageType){
+        case 'sessionStorage':
+            sessionStorage.removeItem(key);
+            break;
+        default:
+            localStorage.removeItem(key);
     }
-
-    return false;
 }
