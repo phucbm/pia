@@ -5,8 +5,6 @@ import {
 } from "./validate";
 import {getRecord, removeRecord, setRecord} from "./storage";
 import {getDiffSinceCreated, isRecordExpired} from "./expiration-check";
-import {re} from "@babel/core/lib/vendor/import-meta-resolve";
-
 
 /**
  * Private class

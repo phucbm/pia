@@ -6,12 +6,12 @@ import {getDiff} from "./datetime";
  * @returns {boolean}
  */
 export function isRecordExpired(record){
-    if(!record) return false;
+    if(!record) return true // record is expired if not found
 
     // never expired
-    const neverExpired = ['session', 'never'];
+    const neverExpired = ['session', 'never']
     if(neverExpired.includes(record.expires)){
-        return false;
+        return false
     }
 
     // check by unit
