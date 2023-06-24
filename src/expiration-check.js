@@ -11,23 +11,11 @@ export function isRecordExpired(record){
     // never expired
     const neverExpired = ['session', 'never']
     if(neverExpired.includes(record.expires)){
-        return false
+        return false;
     }
 
     // check by unit
-    switch(record.unit){
-        case 'times':
-            return isExpiredTimesCheck(record);
-        case 'hour':
-        default:
-            // day
-            return isExpiredDateCheck(record);
-    }
-}
-
-function isExpiredTimesCheck(record){
-    // todo: check times
-    return false;
+    return isExpiredDateCheck(record);
 }
 
 
@@ -43,7 +31,7 @@ function isExpiredDateCheck(record){
 export function getDiffSinceCreated(record, unit = undefined){
     unit = unit ? unit : record.unit;
 
-    const acceptedUnits = ['times', 'ms', 'second', 'minute', 'hour', 'day'];
+    const acceptedUnits = ['ms', 'second', 'minute', 'hour', 'day'];
     if(!acceptedUnits.includes(unit)) return null; // null if unit is not accepted
 
     return getDiff(new Date(record.createdDate), new Date(), unit);

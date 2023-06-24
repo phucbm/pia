@@ -20,7 +20,7 @@ class Pia{
     set(key, value, options = {}){
         const config = {
             expires: 'never', // "session", "never", (int)number
-            unit: 'day', // times, hour, day
+            unit: 'day', // hour, day
             ...options
         };
 

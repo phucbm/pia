@@ -35,7 +35,7 @@ export function getValidatedExpiresValue(expires, unit){
  * @returns {boolean|*}
  */
 export function getValidatedExpiresUnit(unit){
-    const allowedUnits = ['times', 'hour', 'day'];
+    const allowedUnits = ['hour', 'day'];
     if(allowedUnits.includes(unit)){
         return unit;
     }
