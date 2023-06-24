@@ -13,6 +13,6 @@ if(Pia.isExpired('pia-day')) Pia.set('pia-day', 'test day', {expires: 2});
 if(Pia.isExpired('pia-hour')) Pia.set('pia-hour', 'test hour', {expires: 2, unit: 'hour'});
 if(Pia.isExpired('pia-never')) Pia.set('pia-never', 'test never');
 
-Pia.test('pia-day');
-Pia.test('pia-hour');
-Pia.test('pia-never');
+Pia.test('pia-day', true);
+Pia.test('pia-hour', true);
+Pia.test('pia-never', true);

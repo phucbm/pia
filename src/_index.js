@@ -17,12 +17,18 @@ class Pia{
         return isRecordExpired(getRecord(key));
     }
 
-    test(key){
+    test(key, log = false){
         const record = getRecord(key, true);
         let testRecord = '';
+        const leftover = [];
 
         if(record){
-            const leftover = typeof record.expires === 'number' ? `${record.expires - getDiffSinceCreated(record)} ${record.unit}` : record.expires;
+            if(typeof record.expires === 'number'){
+                leftover.push(`${record.expires - getDiffSinceCreated(record)} ${record.unit}`);
+            }else{
+                leftover.push(record.expires);
+            }
+
             testRecord = {
                 leftover,
                 record
@@ -31,9 +37,14 @@ class Pia{
             testRecord = `Record "${key}" not found.`;
         }
 
-        console.group(`Test record:`, key);
-        console.log(testRecord);
-        console.groupEnd();
+        if(log){
+            console.group(`Test record:`, key);
+            console.log('leftover', leftover);
+            console.log('record', record);
+            console.groupEnd();
+        }
+
+        return testRecord;
     }
 
     set(key, value, options = {}){
