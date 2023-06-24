@@ -59,16 +59,17 @@ class Pia{
      */
     test(key, log = false){
         const record = getRecord(key, true);
-        let testRecord = null;
+        let testRecord;
         const leftover = [];
 
         if(record){
             if(typeof record.expires === 'number'){
                 leftover.push(`${record.expires - getDiffSinceCreated(record)} ${record.unit}(s) left`);
-                leftover.push(`created ${getDiffSinceCreated(record, 'second')} second(s) ago`);
-                leftover.push(`created ${getDiffSinceCreated(record, 'minute')} minute(s) ago`);
-                leftover.push(`created ${getDiffSinceCreated(record, 'hour')} hour(s) ago`);
-                leftover.push(`created ${getDiffSinceCreated(record, 'day')} day(s) ago`);
+
+                // created xxx ago
+                ['second', 'minute', 'hour', 'day'].forEach(unit => {
+                    leftover.push(`created ${getDiffSinceCreated(record, unit)} ${unit}(s) ago`);
+                });
             }else{
                 leftover.push(record.expires);
             }

@@ -1,5 +1,3 @@
-import {getFormattedDate} from "./utils"
-
 /**
  * Get expires from input
  * @param expires
@@ -40,7 +38,7 @@ export function getValidatedExpiresUnit(unit){
         return unit;
     }
 
-    console.warn(`PiaJS: unit "${unit}" is not recognized. Accepted units are`, allowedUnits);
+    console.warn(`PiaJS: unit "${unit}" is not recognized.`);
     return false;
 }
 

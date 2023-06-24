@@ -22,12 +22,10 @@ export function setRecord(key, value){
     }
 
     // set record
-    switch(storageType){
-        case 'sessionStorage':
-            sessionStorage.setItem(key, string);
-            break;
-        default:
-            localStorage.setItem(key, string);
+    if(storageType === 'sessionStorage'){
+        sessionStorage.setItem(key, string);
+    }else{
+        localStorage.setItem(key, string);
     }
 }
 
@@ -57,11 +55,7 @@ export function getRecord(key, returnFullValue = false){
     // check expires
     if(!isRecordExpired(record)){
         // return value if it has not expired yet
-        if(returnFullValue){
-            return record;
-        }else{
-            return record.value;
-        }
+        return returnFullValue ? record : record.value;
     }
 
     // remove expired item and return null
@@ -76,11 +70,9 @@ export function getRecord(key, returnFullValue = false){
  * @returns {boolean}
  */
 export function removeRecord(key, storageType = 'localStorage'){
-    switch(storageType){
-        case 'sessionStorage':
-            sessionStorage.removeItem(key);
-            break;
-        default:
-            localStorage.removeItem(key);
+    if(storageType === 'sessionStorage'){
+        sessionStorage.removeItem(key);
+    }else{
+        localStorage.removeItem(key);
     }
 }
