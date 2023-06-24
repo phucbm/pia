@@ -17,36 +17,6 @@ class Pia{
         return isRecordExpired(getRecord(key));
     }
 
-    test(key, log = false){
-        const record = getRecord(key, true);
-        let testRecord = '';
-        const leftover = [];
-
-        if(record){
-            if(typeof record.expires === 'number'){
-                leftover.push(`${record.expires - getDiffSinceCreated(record)} ${record.unit}`);
-            }else{
-                leftover.push(record.expires);
-            }
-
-            testRecord = {
-                leftover,
-                record
-            };
-        }else{
-            testRecord = `Record "${key}" not found.`;
-        }
-
-        if(log){
-            console.group(`Test record:`, key);
-            console.log('leftover', leftover);
-            console.log('record', record);
-            console.groupEnd();
-        }
-
-        return testRecord;
-    }
-
     set(key, value, options = {}){
         const config = {
             expires: 'never', // "session", "never", (int)number
@@ -79,6 +49,46 @@ class Pia{
 
     remove(key){
         return removeRecord(key);
+    }
+
+    /**
+     * Show console log with expiration info
+     * @param key
+     * @param log
+     * @returns {string|{leftover: *[], record: (string|*)}}
+     */
+    test(key, log = false){
+        const record = getRecord(key, true);
+        let testRecord = null;
+        const leftover = [];
+
+        if(record){
+            if(typeof record.expires === 'number'){
+                leftover.push(`${record.expires - getDiffSinceCreated(record)} ${record.unit}(s) left`);
+                leftover.push(`created ${getDiffSinceCreated(record, 'second')} second(s) ago`);
+                leftover.push(`created ${getDiffSinceCreated(record, 'minute')} minute(s) ago`);
+                leftover.push(`created ${getDiffSinceCreated(record, 'hour')} hour(s) ago`);
+                leftover.push(`created ${getDiffSinceCreated(record, 'day')} day(s) ago`);
+            }else{
+                leftover.push(record.expires);
+            }
+
+            testRecord = {
+                leftover,
+                record
+            };
+        }else{
+            testRecord = `Record "${key}" not found.`;
+        }
+
+        if(log){
+            console.group(`Test record:`, key);
+            console.table(leftover);
+            console.log('record', record);
+            console.groupEnd();
+        }
+
+        return testRecord;
     }
 }
 

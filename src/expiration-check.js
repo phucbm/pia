@@ -40,9 +40,11 @@ function isExpiredDateCheck(record){
     return diffSinceCreated > allowance;
 }
 
-export function getDiffSinceCreated(record){
-    const hasLeftoverUnit = ['times', 'hour', 'day'];
-    if(!hasLeftoverUnit.includes(record.unit)) return null;
+export function getDiffSinceCreated(record, unit = undefined){
+    unit = unit ? unit : record.unit;
 
-    return getDiff(new Date(record.createdDate), new Date(), record.unit);
+    const acceptedUnits = ['times', 'ms', 'second', 'minute', 'hour', 'day'];
+    if(!acceptedUnits.includes(unit)) return null; // null if unit is not accepted
+
+    return getDiff(new Date(record.createdDate), new Date(), unit);
 }
