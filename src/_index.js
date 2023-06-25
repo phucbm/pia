@@ -1,9 +1,4 @@
-import {
-    getStorageTypeByExpires,
-    getValidatedExpiresUnit,
-    getValidatedExpiresValue
-} from "./validate";
-import {getRecord, removeRecord, setRecord} from "./storage";
+import {getInitialRecordValue, getRecord, removeRecord, setRecord} from "./storage";
 import {getDiffSinceCreated, isRecordExpired} from "./expiration-check";
 
 /**
@@ -17,30 +12,31 @@ class Pia{
         return isRecordExpired(getRecord(key));
     }
 
+    // update value, keep other configs the same
+    update(key, newValue){
+        // stop updating if record is null
+        if(!getRecord(key)){
+            console.warn(`Updating undefined record "${key}" is not allowed.`);
+            return;
+        }
+
+        const value = getRecord(key, true);
+
+        // throw warning if mismatched value types
+        if(typeof newValue !== value.valueType){
+            console.warn(`Updating mismatched value types. Changing from ${value.valueType} to ${typeof newValue}.`);
+        }
+
+        // update value
+        value.value = newValue;
+
+        // override record
+        setRecord(key, value);
+    }
+
+    // create a new record, override if the key is the same
     set(key, value, options = {}){
-        const config = {
-            expires: 'never', // "session", "never", (int)number
-            unit: 'day', // hour, day
-            ...options
-        };
-
-        const unit = getValidatedExpiresUnit(config.unit);
-        const expires = getValidatedExpiresValue(config.expires, unit);
-        const storageType = getStorageTypeByExpires(expires);
-
-        const formattedObject = {
-            key,
-            valueType: typeof value,
-            value,
-            expires,
-            unit,
-            storageType,
-            arguments,
-            createdDate: new Date().toString()
-        };
-
-        // set Item
-        setRecord(key, formattedObject);
+        setRecord(key, getInitialRecordValue(key, value, options));
     }
 
     get(key, returnFullValue = false){

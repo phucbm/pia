@@ -16,3 +16,6 @@ if(Pia.isExpired('pia-never')) Pia.set('pia-never', 'test never');
 Pia.test('pia-day', true);
 Pia.test('pia-hour', true);
 Pia.test('pia-never', true);
+
+
+Pia.update('pia-day', 'test update');

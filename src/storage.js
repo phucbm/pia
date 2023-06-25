@@ -1,4 +1,30 @@
 import {isRecordExpired} from "./expiration-check";
+import {getStorageTypeByExpires, getValidatedExpiresUnit, getValidatedExpiresValue} from "./validate";
+
+
+export function getInitialRecordValue(key, value, options = {}){
+    const config = {
+        expires: 'never', // "session", "never", (int)number
+        unit: 'day', // hour, day
+        ...options
+    };
+
+    const unit = getValidatedExpiresUnit(config.unit);
+    const expires = getValidatedExpiresValue(config.expires, unit);
+    const storageType = getStorageTypeByExpires(expires);
+
+    return {
+        key,
+        valueType: typeof value,
+        value,
+        expires,
+        unit,
+        storageType,
+        arguments,
+        createdDate: new Date().toString()
+    };
+}
+
 
 /**
  * Set item
@@ -10,15 +36,12 @@ export function setRecord(key, value){
     const string = JSON.stringify(value);
 
     // check existence
-    const existingValue = getRecord(key);
-    if(existingValue !== null){
-        const oldStorage = existingValue.storageType;
-        if(oldStorage !== storageType){
-            // remove if is existed in storage
-            removeRecord(key);
-        }else{
-            // override record
-        }
+    if(getRecord(key)?.storageType !== storageType){
+        // not allow the same key in both local and session storage
+        // remove current record
+        removeRecord(key);
+    }else{
+        // override record
     }
 
     // set record
