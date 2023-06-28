@@ -1,34 +1,45 @@
-import {daysBetween, getDate} from "./utils"
-
 /**
  * Get expires from input
  * @param expires
- * @returns {string}
+ * @param unit
+ * @returns {*}
  */
-export function getValidatedExpires(expires){
-    let validatedExpires = '';
+export function getValidatedExpiresValue(expires, unit){
+    // accepted values: "session", "never", (int)number
 
     // string
     if(typeof expires === 'string'){
-        switch(expires){
-            case 'session':
-            case 'tab':
-            case 'current-tab':
-                validatedExpires = 'session';
-                break;
-            default:
-                validatedExpires = 'never';
+        const acceptedSessionStrings = ['session', 'tab', 'current-tab'];
+        if(acceptedSessionStrings.includes(expires)){
+            return 'session';
         }
+        return 'never';
     }
 
     // number
     if(typeof expires === 'number'){
-        expires = parseInt(expires);
-        validatedExpires = getDate(expires);
+        return parseInt(expires);
     }
 
-    // session, never, date mm/dd/yyyy
-    return validatedExpires;
+    // invalid
+    return false;
+}
+
+
+/**
+ * Get expires unit
+ * Return the accepted unit or false if the unit is not recognized
+ * @param unit
+ * @returns {boolean|*}
+ */
+export function getValidatedExpiresUnit(unit){
+    const allowedUnits = ['hour', 'day'];
+    if(allowedUnits.includes(unit)){
+        return unit;
+    }
+
+    console.warn(`PiaJS: unit "${unit}" is not recognized.`);
+    return false;
 }
 
 
@@ -39,23 +50,4 @@ export function getValidatedExpires(expires){
  */
 export function getStorageTypeByExpires(expires){
     return expires === 'session' ? 'sessionStorage' : 'localStorage'
-}
-
-
-/**
- * Check expires by formatted value
- * @param value
- * @returns {boolean}
- */
-export function isExpired(value){
-    switch(value.expires){
-        case 'session':
-        case 'never':
-            // never expired
-            return false;
-        default:
-            // check date
-            const daysDiff = daysBetween(getDate(), value.expires);
-            return daysDiff < 0;
-    }
 }
