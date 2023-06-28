@@ -1,22 +1,28 @@
 import {isRecordExpired} from "./expiration-check";
-import {getStorageTypeByExpires, getValidatedExpiresUnit, getValidatedExpiresValue} from "./validate";
+import {
+    getExpiresAndUnit,
+    getStorageTypeByExpires,
+    getValidatedExpiresUnit,
+    getValidatedExpiresValue
+} from "./validate";
 
 
 export function getInitialRecordValue(key, value, options = {}){
     const config = {
-        expires: 'never', // "session", "never", (int)number
-        unit: 'day', // hour, day
+        expires: 'never', // "session", "never", "1 day", "2 hours", (int)number
         ...options
     };
 
-    const unit = getValidatedExpiresUnit(config.unit);
-    const expires = getValidatedExpiresValue(config.expires, unit);
+    const extractExpiresUnit = getExpiresAndUnit(config.expires);
+    const unit = getValidatedExpiresUnit(extractExpiresUnit.unit);
+    const expires = getValidatedExpiresValue(extractExpiresUnit.expires);
     const storageType = getStorageTypeByExpires(expires);
 
     return {
         key,
         valueType: typeof value,
         value,
+        raw_expires: config.expires,
         expires,
         unit,
         storageType,
