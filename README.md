@@ -23,29 +23,24 @@
 
 ## Installation
 
-### NPM package
+Using package manager:
 
 ```shell
 npm i piajs
-```
-
-or as a dev dependency
-
-```shell
-npm i piajs --save-dev
 ```
 
 Import
 
 ```js
 import "piajs";
-
-// your script
 ```
 
-### CDN
+Using CDN:
 
-Download minified version from `/dist` folder.
+```html
+<!-- PiaJs -->
+<script src="https://cdn.jsdelivr.net/gh/phucbm/pia@0.1.0/dist/pia.min.js"></script>
+```
 
 ## Usage
 
@@ -62,10 +57,10 @@ Pia.set('key', true); // boolean
 ```
 
 Unlike normal `localStorage` or `sessionStorage`, PiaJS uses `JSON.stringify()`
-to convert the value to string, so it would accept any type of value.
+to convert the value to a string, so it would accept any type of value.
 
 > **Warning**
-> Prototypes of an _Object_ will be treated as a plain string value. So you can't store instance with Pia.
+> Prototypes of an _Object_ will be treated as a plain string value. So you can't store instances with Pia.
 
 ### Set expires
 
