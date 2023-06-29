@@ -1,7 +1,5 @@
-import {getStorageTypeByExpires, getValidatedExpires} from "./validate";
-import {getItem, remove, setItem} from "./storage";
-import {getDate, log} from "./utils";
-
+import {getInitialRecordValue, getRecord, removeRecord, setRecord} from "./storage";
+import {getDiffSinceCreated, isRecordExpired} from "./expiration-check";
 
 /**
  * Private class
@@ -10,50 +8,85 @@ class Pia{
     constructor(){
     }
 
-    set(key, value, options){
-        const config = {
-            expires: 'local', // local, session, int
-            ...options
-        };
+    isExpired(key){
+        return isRecordExpired(getRecord(key));
+    }
 
-        const expires = getValidatedExpires(config.expires);
-        const storageType = getStorageTypeByExpires(expires);
+    // update value, keep other configs the same
+    update(key, newValue){
+        // stop updating if record is null
+        if(!getRecord(key)){
+            console.warn(`Updating undefined record "${key}" is not allowed.`);
+            return;
+        }
 
-        const formattedObject = {
-            key,
-            valueType: typeof value,
-            value,
-            expires,
-            storageType,
-            arguments,
-            createdDate: getDate()
-        };
+        const value = getRecord(key, true);
 
-        // set Item
-        setItem(key, formattedObject);
+        // throw warning if mismatched value types
+        if(typeof newValue !== value.valueType){
+            console.warn(`Updating mismatched value types. Changing from ${value.valueType} to ${typeof newValue}.`);
+        }
+
+        // update value
+        value.value = newValue;
+
+        // override record
+        setRecord(key, value);
+    }
+
+    // create a new record, override if the key is the same
+    set(key, value, options = {}){
+        setRecord(key, getInitialRecordValue(key, value, options));
     }
 
     get(key, returnFullValue = false){
-        const value = getItem(key);
-
-        if(value !== null){
-            if(returnFullValue){
-                log('log', 'GET', value);
-                return value;
-            }else{
-                log('log', 'GET', value.value);
-                return value.value;
-            }
-        }
-
-        log('log', 'GET', value);
-        return value;
+        return getRecord(key, returnFullValue);
     }
 
     remove(key){
-        return remove(key);
+        return removeRecord(key);
     }
 
+    /**
+     * Show console log with expiration info
+     * @param key
+     * @param log
+     * @returns {string|{leftover: *[], record: (string|*)}}
+     */
+    test(key, log = false){
+        const record = getRecord(key, true);
+        let testRecord;
+        const leftover = [];
+
+        if(record){
+            if(typeof record.expires === 'number'){
+                leftover.push(`${record.expires - getDiffSinceCreated(record)} ${record.unit}(s) left`);
+
+                // created xxx ago
+                ['second', 'minute', 'hour', 'day'].forEach(unit => {
+                    leftover.push(`created ${getDiffSinceCreated(record, unit)} ${unit}(s) ago`);
+                });
+            }else{
+                leftover.push(record.expires);
+            }
+
+            testRecord = {
+                leftover,
+                record
+            };
+        }else{
+            testRecord = `Record "${key}" not found.`;
+        }
+
+        if(log){
+            console.group(`Test record:`, key);
+            console.table(leftover);
+            console.log('record', record);
+            console.groupEnd();
+        }
+
+        return testRecord;
+    }
 }
 
 /**

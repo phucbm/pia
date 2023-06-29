@@ -9,9 +9,13 @@ const app = document.querySelector('#root')
 app.innerHTML = homeHtml;
 
 // init
-// Pia.set('hey2', 124);
-// Pia.set('hey2', 1.4);
-// Pia.set('hey3', {test: 'lorem'});
-// Pia.set('hey3', [1, 2, 3]);
-Pia.set('hey1', [1, 2, 3], {expires: 2});
-Pia.get('hey1');
+if(Pia.isExpired('pia-day')) Pia.set('pia-day', 'test day', {expires: 2});
+if(Pia.isExpired('pia-hour')) Pia.set('pia-hour', 'test hour', {expires: '2 hour'});
+if(Pia.isExpired('pia-never')) Pia.set('pia-never', 'test never');
+
+Pia.test('pia-day', true);
+Pia.test('pia-hour', true);
+Pia.test('pia-never', true);
+
+
+Pia.update('pia-day', 'test update');
