@@ -37,7 +37,7 @@ export function getValidatedExpiresUnit(unit){
         return unit;
     }
 
-    console.warn(`PiaJS: unit "${unit}" is not recognized.`);
+    //console.warn(`PiaJS: unit "${unit}" is not recognized.`);
     return false;
 }
 
