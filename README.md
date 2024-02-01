@@ -39,7 +39,7 @@ Using CDN:
 
 ```html
 <!-- PiaJs -->
-<script src="https://cdn.jsdelivr.net/gh/phucbm/pia@0.1.0/dist/pia.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/phucbm/pia@0.1.1/dist/pia.min.js"></script>
 ```
 
 ## Usage

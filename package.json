@@ -3,7 +3,7 @@
   "outputName": "pia",
   "prettyName": "Pia JS",
   "codeName": "Pia",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Manage session storage and local storage as easy as eating a Pia cake.",
   "homepage": "https://github.com/phucbm/pia",
   "repository": {
