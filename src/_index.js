@@ -59,8 +59,8 @@ class Pia{
             const keys = Array.from({length: localStorage.length}, (_, i) => {
                 const key = localStorage.key(i);
                 const record = Pia.get(key, true);
-                console.log(record)
-                // Check if record has the required properties
+
+                // Check if record has the required properties to avoid other records in localStorage
                 if(record &&
                     typeof record === 'object' &&
                     'expires' in record &&
