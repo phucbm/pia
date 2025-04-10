@@ -35,15 +35,15 @@ class Pia{
     }
 
     // create a new record, override if the key is the same
-    set(key, value, options = {}){
+    static set(key, value, options = {}){
         setRecord(key, getInitialRecordValue(key, value, options));
     }
 
-    get(key, returnFullValue = false){
+    static get(key, returnFullValue = false){
         return getRecord(key, returnFullValue);
     }
 
-    remove(key){
+    static remove(key){
         return removeRecord(key);
     }
 
@@ -51,9 +51,35 @@ class Pia{
      * Show console log with expiration info
      * @param key
      * @param log
-     * @returns {string|{leftover: *[], record: (string|*)}}
+     * @returns {string|{leftover: *[], record: (string|*)}|null}
      */
     static test(key, log = false){
+        if(!key){
+            // test all
+            const keys = Array.from({length: localStorage.length}, (_, i) => {
+                const key = localStorage.key(i);
+                const record = Pia.get(key, true);
+                console.log(record)
+                // Check if record has the required properties
+                if(record &&
+                    typeof record === 'object' &&
+                    'expires' in record &&
+                    'key' in record &&
+                    'raw_expires' in record &&
+                    'storageType' in record &&
+                    'unit' in record &&
+                    'value' in record &&
+                    'valueType' in record){
+                    return key;
+                }
+                return null;
+            }).filter(Boolean);
+
+            keys.forEach(key => Pia.test(key, true))
+
+            return null;
+        }
+
         const record = getRecord(key, true);
         let testRecord;
         const leftover = [];
