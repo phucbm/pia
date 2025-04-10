@@ -39,7 +39,7 @@ Using CDN:
 
 ```html
 <!-- PiaJs -->
-<script src="https://cdn.jsdelivr.net/gh/phucbm/pia@0.1.1/dist/pia.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/phucbm/pia@0.1.2/dist/pia.min.js"></script>
 ```
 
 ## Usage
@@ -90,6 +90,12 @@ Pia.remove('key');
 ```
 
 ### Test record
+
+Run this in the console
+
+```js
+Pia.test()
+```
 
 Log the info about a record
 
