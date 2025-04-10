@@ -8,12 +8,12 @@ class Pia{
     constructor(){
     }
 
-    isExpired(key){
+    static isExpired(key){
         return isRecordExpired(getRecord(key));
     }
 
     // update value, keep other configs the same
-    update(key, newValue){
+    static update(key, newValue){
         // stop updating if record is null
         if(!getRecord(key)){
             console.warn(`Updating undefined record "${key}" is not allowed.`);
@@ -53,7 +53,7 @@ class Pia{
      * @param log
      * @returns {string|{leftover: *[], record: (string|*)}}
      */
-    test(key, log = false){
+    static test(key, log = false){
         const record = getRecord(key, true);
         let testRecord;
         const leftover = [];
@@ -93,4 +93,4 @@ class Pia{
  * Public library object
  * access via window.Pia
  */
-window.Pia = new Pia();
+window.Pia = Pia;
