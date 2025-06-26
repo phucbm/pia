@@ -1,9 +1,13 @@
 # PiaJS
 
-[![release](https://badgen.net/npm/v/piajs)](https://www.npmjs.com/package/piajs?activeTab=versions)
-[![minified](https://badgen.net/badge/minified/3KB/cyan)](https://www.jsdelivr.com/package/gh/phucbm/pia)
-[![license](https://badgen.net/npm/license/piajs)](https://github.com/phucbm/pia/blob/main/LICENSE)
-[![jsdelivr](https://data.jsdelivr.com/v1/package/gh/phucbm/pia/badge?style=rounded)](https://www.jsdelivr.com/package/gh/phucbm/pia)
+[![npm version](https://badgen.net/npm/v/piajs?activeTab=versions?icon=npm)](https://www.npmjs.com/package/piajs?activeTab=versions)
+[![npm downloads](https://badgen.net/npm/dm/piajs?activeTab=versions?icon=npm)](https://www.npmjs.com/package/piajs?activeTab=versions)
+[![npm dependents](https://badgen.net/npm/dependents/piajs?activeTab=versions?icon=npm)](https://www.npmjs.com/package/piajs?activeTab=versions)
+[![github stars](https://badgen.net/github/stars/phucbm/pia?icon=github)](https://github.com/phucbm/pia/)
+[![jsdelivr hits](https://badgen.net/jsdelivr/hits/gh/phucbm/pia?icon=jsdelivr)](https://www.jsdelivr.com/package/gh/phucbm/pia)
+[![jsdelivr npm rank](https://badgen.net/jsdelivr/rank/npm/piajs?activeTab=versions?icon=npm)](https://www.npmjs.com/package/piajs?activeTab=versions)
+[![github license](https://badgen.net/github/license/phucbm/pia?icon=github)](https://github.com/phucbm/pia/blob/main/LICENSE)
+[![Made in Vietnam](https://raw.githubusercontent.com/webuild-community/badge/master/svg/made.svg)](https://webuild.community)
 
 > A simple, lightweight JavaScript API for handling browser storage
 
